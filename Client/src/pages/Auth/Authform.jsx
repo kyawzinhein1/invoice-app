@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const AuthForm = () => {
   const [isLogin, setIsLogin] = useState(true);
@@ -6,8 +7,15 @@ const AuthForm = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
+  const navigate = useNavigate();
+
   const handleLogin = (e) => {
     e.preventDefault();
+    if (email.trim() === "admin@gmail.com" && password.trim() === "12345") {
+      navigate("/sale");
+    } else {
+      alert("Invalid email or password");
+    }
   };
 
   const handleFormToggle = () => {

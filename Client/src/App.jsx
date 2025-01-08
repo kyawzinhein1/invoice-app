@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import Index from "./layouts/Index";
@@ -8,25 +8,35 @@ import Sale from "./pages/Sale";
 import Invoices from "./pages/Invoices";
 import AuthForm from "./pages/Auth/Authform";
 import Products from "./pages/Products";
+import fetchProducts from "./api/productApi";
 
 const App = () => {
-  const products = [
-    { id: 1, name: "Apple", price: 1200 },
-    { id: 2, name: "Banana", price: 300 },
-    { id: 3, name: "Orange", price: 500 },
-    { id: 4, name: "Milk", price: 2000 },
-    { id: 5, name: "Bread", price: 800 },
-    { id: 6, name: "Eggs", price: 400 },
-    { id: 7, name: "Cheese", price: 2500 },
-    { id: 8, name: "Coffee", price: 10000 },
-    { id: 9, name: "Tea", price: 12000 },
-    { id: 10, name: "Butter", price: 3000 },
-  ];
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  // Fetch products on component mount
+  useEffect(() => {
+    const loadProducts = async () => {
+      try {
+        const fetchedProducts = await fetchProducts();
+        setProducts(fetchedProducts); // Set the fetched products
+      } catch (error) {
+        console.error("Error loading products:", error); // Handle any error
+      } finally {
+        setLoading(false); // Stop loading after data is fetched
+      }
+    };
+
+    loadProducts();
+  }, []);
 
   const handleSalesComplete = (sales) => {
-    // console.log('Sales completed:', sales);
     return sales;
   };
+
+  if (loading) {
+    return <div>Loading...</div>; // Show loading while fetching products
+  }
 
   const router = createBrowserRouter([
     {

@@ -12,7 +12,7 @@ const AuthForm = () => {
   const handleLogin = (e) => {
     e.preventDefault();
     if (email.trim() === "admin@gmail.com" && password.trim() === "12345") {
-      navigate("/sale");
+      navigate("/dashboard");
     } else {
       alert("Invalid email or password");
     }

@@ -1,24 +1,27 @@
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
+import Button from "../components/Button";
+import Breadcrumbs from "../components/Breadcrumbs";
 
 const Invoice = () => {
   const { state } = useLocation();
   const { sales } = state || {}; // The selected products
-  const navigate = useNavigate();
 
   const totalAmount = sales.reduce((acc, item) => acc + item.total, 0);
+
+  const breadcrumbLinks = [
+    { label: "Dashboard", href: "/dashboard" },
+    { label: "Sale", href: "/sale" },
+    { label: "Invoice"},
+  ];
 
   return (
     <div>
       <div className="flex justify-between items-center">
         <h1 className="text-2xl text-center font-bold my-10">Invoice</h1>
-        <button
-          className="bg-blue-500 text-white p-2 rounded mt-2 ml-2"
-          onClick={() => {
-            navigate("/sale");
-          }}
-        >
-          Back to Sale
-        </button>
+        <Button path={"/sale"} />
+      </div>
+      <div className="mb-4">
+        <Breadcrumbs links={breadcrumbLinks} />
       </div>
       {sales && sales.length > 0 ? (
         <table className="w-full mt-4 border-collapse">

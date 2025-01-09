@@ -1,21 +1,23 @@
 import React from "react";
+import Button from "../components/Button";
 
 const Products = ({ products }) => {
   return (
     <div>
-      {products.map((product) => {
-        return (
-          <div className="flex flex-reverse justify-center">
-            <div
-              key={product.id}
-              className="w-32 mx-auto my-2 p-2 border border-gray-300 bg-gray-300 rounded-md"
-            >
-              <h3>Name - {product.name}</h3>
-              <p>Price: ${product.price}</p>
-            </div>
-          </div>
-        );
-      })}
+      <div className="flex justify-between items-center">
+        <h1 className="text-2xl font-bold my-10">Products</h1>
+        <Button path={"/dashboard"} />
+      </div>
+
+      {products.map((product) => (
+        <div
+          key={product.id}
+          className="bg-gray-200 py-4 px-6 rounded-md my-2 flex justify-between items-center"
+        >
+          <p className="text-lg font-semibold">{product.name}</p>
+          <p className="text-lg font-semibold">${product.price}</p>
+        </div>
+      ))}
     </div>
   );
 };

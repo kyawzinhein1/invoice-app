@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Button from "../components/Button";
+import Breadcrumbs from "../components/Breadcrumbs";
 
 const Sale = ({ products, onSalesComplete }) => {
   const [selectedProducts, setSelectedProducts] = useState([]);
@@ -56,9 +58,20 @@ const Sale = ({ products, onSalesComplete }) => {
     navigate("/invoice", { state: { sales: selectedProducts } });
   };
 
+  const breadcrumbLinks = [
+    { label: "Dashboard", href: "/dashboard" },
+    { label: "Sale"},
+  ];
+
   return (
     <div>
-      <h1 className="text-2xl font-bold my-10">Sales</h1>
+      <div className="flex justify-between items-center">
+        <h1 className="text-2xl font-bold my-10">Sales</h1>
+        <Button path={"/dashboard"} />
+      </div>
+      <div className="mb-4">
+        <Breadcrumbs links={breadcrumbLinks} />
+      </div>
       <div>
         <table className="w-full">
           <thead>

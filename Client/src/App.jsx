@@ -14,16 +14,15 @@ const App = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // Fetch products on component mount
   useEffect(() => {
     const loadProducts = async () => {
       try {
         const fetchedProducts = await fetchProducts();
-        setProducts(fetchedProducts); // Set the fetched products
+        setProducts(fetchedProducts);
       } catch (error) {
-        console.error("Error loading products:", error); // Handle any error
+        console.error("Error loading products:", error);
       } finally {
-        setLoading(false); // Stop loading after data is fetched
+        setLoading(false);
       }
     };
 
@@ -35,7 +34,7 @@ const App = () => {
   };
 
   if (loading) {
-    return <div>Loading...</div>; // Show loading while fetching products
+    return <div>Loading...</div>;
   }
 
   const router = createBrowserRouter([
